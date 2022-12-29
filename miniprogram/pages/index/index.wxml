@@ -1,0 +1,15 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="banner">
+    <swiper class="swiper" autoplay="true">
+      <swiper-item class="swiper-item" wx:for="{{bannerList}}" wx:key="imageUrl">
+        <image class="banner-image" src="{{item.imageUrl}}"></image>
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <view class="header-title">
+    <view class="title-item" wx:for="{{headerTitleList}}" wx:key="title">
+      {{item.title}}</view>
+  </view>
+</view>
