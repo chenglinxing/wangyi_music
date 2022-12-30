@@ -9,7 +9,7 @@
   </view>
 
   <view class="header-title">
-    <view class="title-item" wx:for="{{headerTitleList}}" wx:key="title">
+    <view class="title-item" bindtap="handleClickTitle" data-title="{{item.key}}" wx:for="{{headerTitleList}}" wx:key="title">
       {{item.title}}</view>
   </view>
 </view>

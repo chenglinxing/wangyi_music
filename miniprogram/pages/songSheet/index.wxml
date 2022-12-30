@@ -1,0 +1,6 @@
+<!--pages/songSheet/index.wxml-->
+<view class="song-sheet-index">
+  <view class="header-title">
+    <span class="title {{activeTitle === item.id ? 'title-active' : ''}}" wx:for="{{songSheetlist}}" wx:key="id" bindtap="handleClickTitle" data-id="{{item.id}}">{{item.name}}</span>
+  </view>
+</view>
