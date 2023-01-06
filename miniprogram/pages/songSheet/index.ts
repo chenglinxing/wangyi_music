@@ -1,6 +1,7 @@
 // pages/songSheet/index.ts
 import {
-  getHotSongSheet
+  getHotSongSheet,
+  getSongListDetailById
 } from "../../api/index"
 
 Page({
@@ -11,6 +12,12 @@ Page({
   data: {
     songSheetlist: [],//热门歌单
     activeTitle: null,//动态class  默认第一个
+    songListParams: {
+      id: "",
+      limit: 10,
+      offset: 1
+    },//获取歌单详情所需参数
+    currentSongList: [],//当前歌单详情信息
   },
   //初始化获取热门歌单
   async initHotSongSheet() {
@@ -25,19 +32,50 @@ Page({
   },
 
   //点击title
-  handleClickTitle(e: any) {
+  async handleClickTitle(e: any) {
     console.log(e.currentTarget.dataset);
     this.setData({
-      activeTitle: e.currentTarget.dataset.id
+      activeTitle: e.currentTarget.dataset.id,
+      songListParams: {
+        id: e.currentTarget.dataset.id,
+        limit: 10,
+        offset: 0
+      }
+    })
+    await this.getSongListDetail(this.data.songListParams)
+  },
+
+  //根据歌单id获取歌单详情
+  async getSongListDetail(params) {
+    const data: any = await getSongListDetailById(params)
+    console.log(data);
+    let currentSongList: any = []
+    if (data.code === 200) {
+      currentSongList = data.songs || []
+    } else {
+      currentSongList = []
+    }
+    this.setData({
+      currentSongList
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options: any) {
+  async onLoad(options: any) {
     console.log(options);
+    //key=0 热门歌单  key=1 精选
     if (options.key == 0) {
-      this.initHotSongSheet()
+      await this.initHotSongSheet()
+      this.setData({
+        songListParams: {
+          id: this.data.activeTitle || "",
+          limit: 10,
+          offset: 1
+        }
+      })
+      let { songListParams } = this.data
+      await this.getSongListDetail(songListParams)
     }
   },
 

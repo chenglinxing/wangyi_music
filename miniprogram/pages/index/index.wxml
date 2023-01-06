@@ -1,5 +1,15 @@
 <!--index.wxml-->
 <view class="container">
+  <!--搜索栏-->
+  <view class="search">
+
+    <view class="iconfont icon-caidan" bindtap="handleClickMenu"></view>
+    <view class="search-input" bindtap="handleClickSearch">
+      <view class="iconfont icon-sousuo"></view>
+      <span>晚风 - 7Copy</span>
+    </view>
+    <view class="iconfont icon-luyin" bindtap="handleClickSound"></view>
+  </view>
   <view class="banner">
     <swiper class="swiper" autoplay="true">
       <swiper-item class="swiper-item" wx:for="{{bannerList}}" wx:key="imageUrl">
@@ -9,7 +19,13 @@
   </view>
 
   <view class="header-title">
-    <view class="title-item" bindtap="handleClickTitle" data-title="{{item.key}}" wx:for="{{headerTitleList}}" wx:key="title">
-      {{item.title}}</view>
+    <view class="title-item" bindtap="handleClickTitle" data-titleItem="{{item}}" wx:for="{{headerTitleList}}" wx:key="title">
+      <view class="iconfont {{item.icon}}"></view>
+      <view class="title">{{item.title}}</view>
+    </view>
+  </view>
+
+  <view class="music-list-item">
+    <music-list musicList="{{musicList}}"></music-list>
   </view>
 </view>

@@ -1,0 +1,39 @@
+<!--pages/song/index.wxml-->
+<view class="song-index">
+  <!--背景-->
+  <view class="bg" style="background:url({{bgcUrl}})"></view>
+  <!-- 内容 -->
+  <view class="content">
+    <view class="song-name">
+      <view class="name">{{songInfo.songName}}</view>
+      <view class="author">{{songInfo.author}}</view>
+    </view>
+    <!--歌词-->
+    <view class="song-list" bindtap="handleSongList">
+      <view class="song-start" wx:if="{{isShowSongBg}}">
+        <image class="circle-bg" src="{{bgcUrl}}"></image>
+      </view>
+      <view class="song-lyric" wx:else>
+
+        <view class="song-item" wx:for="{{lyricInfo}}" wx:for-item="item" wx:key="item" bindtap="handleClickSong" data-item="{{item}}">
+          {{item}}
+        </view>
+      </view>
+    </view>
+    <!--操作-->
+    <view class="opreate-song">
+      <view class="process">
+        ————————</view>
+      <view class="opreate">
+        <view class="iconfont icon-shangyishou"></view>
+        <view class="iconfont icon-zanting" wx:if="{{defaultPlay}}" bindtap="playMP3"></view>
+        <view class="iconfont icon-bofang" wx:else bindtap="playMP3"></view>
+        <view class="iconfont icon-xiayishou"></view>
+      </view>
+    </view>
+
+
+  </view>
+
+
+</view>

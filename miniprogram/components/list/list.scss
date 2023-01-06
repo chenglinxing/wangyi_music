@@ -1,0 +1,53 @@
+/* components/list.wxss */
+.music-list-index {
+  .list-item {
+    margin-bottom: 35rpx;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20rpx;
+
+      .title {
+        font-weight: 700;
+        font-size: 39rpx;
+      }
+
+      .opreate {
+        font-size: 22rpx;
+      }
+    }
+
+    .song-item-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+
+      .song-item {
+        width: 31.5%;
+        margin: 10rpx 0;
+
+        .song-item-image {
+          height: 180rpx;
+          border-radius: 15rpx;
+          width: 100%;
+        }
+
+        .song-info {
+          .song-name {
+            font-weight: bold;
+            font-size: 24rpx;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+
+          .song-singer {
+            color: #bbbbbb;
+            font-size: 22rpx;
+          }
+        }
+      }
+    }
+  }
+}

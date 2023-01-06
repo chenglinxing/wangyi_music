@@ -1,4 +1,6 @@
 /**index.wxss**/
+@import "../../style/iconfont.wxss";
+
 .container {
   height: 100%;
   width: 100%;
@@ -6,30 +8,100 @@
   flex-direction: column;
 }
 
+.search {
+  height: 72rpx;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 20rpx;
+  padding: 0 20rpx;
+  display: flex;
+  align-items: center;
+
+  .icon-caidan {
+    font-size: 60rpx;
+  }
+
+  .icon-luyin {
+    font-size: 45rpx;
+  }
+
+  // input {
+  //   height: 100%;
+  //   border: 1px solid #d22a62;
+  //   border-radius: 3px;
+  //   padding:0  20rpx;
+  // }
+  .search-input {
+    height: 100%;
+    width: 100%;
+    border: 1px solid #d22a62;
+    border-radius: 50rpx;
+    box-sizing: border-box;
+    padding: 0 30rpx;
+    color: #bbbbbb;
+    line-height: 72rpx;
+    margin: 0 20rpx;
+
+    .iconfont {
+      display: inline;
+    }
+  }
+}
+
 .banner {
   width: 100%;
   box-sizing: border-box;
   padding: 0 20rpx;
-  margin-bottom: 20rpx;
-}
+  margin: 32rpx 0;
 
-.swiper {
-  width: 100%;
-  .swiper-item{
+  .swiper {
+    height: 280rpx;
+    width: 100%;
+    .swiper-item {
+      border-radius: 15rpx;
+    }
+  }
+
+  .banner-image {
+    width: 100%;
+    height: 100%;
     border-radius: 15rpx;
   }
 }
 
-.banner-image {
-  width: 100%;
-  height: 100%;
-  border-radius: 15rpx;
-}
+
 
 .header-title {
-  height: 50rpx;
+  // margin-top: 35rpx;
+  box-sizing: border-box;
+  padding: 10rpx 0;
   width: 100%;
   display: flex;
   justify-content: space-evenly;
-  color: rgb(51,51,51)
+  align-items: center;
+  color: rgb(51, 51, 51);
+
+  .title-item {
+    .iconfont {
+      text-align: center;
+      font-size: 45rpx;
+      color: #d22a62;
+    }
+
+    .title {
+      color: #aaa;
+    }
+  }
+
+
+}
+
+.music-list-item {
+  margin-top: 32rpx;
+  box-sizing: border-box;
+  padding: 0 20rpx;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
 }

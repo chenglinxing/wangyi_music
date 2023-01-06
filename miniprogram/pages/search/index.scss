@@ -1,0 +1,120 @@
+/* pages/search/index.wxss */
+@mixin padding($padding) {
+  box-sizing: border-box;
+  padding:$padding;
+}
+
+.search-index {
+  .header-search {
+    display: flex;
+    align-items: center;
+    height: 72rpx;
+    width: 100%;
+    @include padding(0 20rpx);
+    position: sticky;
+    top: 0rpx;
+    background-color: #ffffff;
+    input {
+      height: 100%;
+      flex: 1;
+      box-sizing: border-box;
+      border: 1px solid #d22a62;
+      border-radius: 50rpx;
+      padding-left: 30rpx;
+    }
+
+    .btn-search {
+      margin-left: 20rpx;
+    }
+  }
+
+  .container {
+    height: calc(100% - 102rpx);
+    width: 100%;
+    background: #eeeeee;
+    overflow: scroll;
+    @include padding(0 30rpx);
+    margin: 30rpx 0;
+    
+    .recommand-info {
+      padding-top: 20rpx;
+
+      .recommend {
+        .recommend-title {
+          font-weight: bold;
+          display: flex;
+          justify-content: space-between;
+
+          .btn {
+            color: #bbbbbb;
+          }
+        }
+
+        .recommend-list {
+          display: flex;
+          margin-top: 20rpx;
+          flex-wrap: wrap;
+
+          span {
+            color: #aaa;
+            border: none;
+            background-color: #fff;
+            border-radius: 42rpx;
+            padding: 10rpx 15rpx;
+            margin-right: 20rpx;
+            margin-bottom: 20rpx;
+
+          }
+        }
+      }
+
+      .hot-detail {
+        .card-item {
+          // width: 500rpx;
+          border: none;
+          border-radius: 10rpx;
+          background-color: #fff;
+          box-sizing: border-box;
+          padding: 0 30rpx 30rpx;
+
+          .card-item-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ccc;
+            padding: 30rpx 0;
+          }
+
+          .card-item-list {
+            margin-top: 30rpx;
+
+            .card-item-list-item {
+              padding: 15rpx 0;
+              &:nth-child(-n+3) {
+                color: red;
+              }
+
+              .card-item-list-item-no {
+                margin-right: 35rpx;
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+    .song-list {
+      .song-item {
+        box-sizing: border-box;
+        padding: 22rpx;
+        border-bottom: 1px solid #ddd;
+        font-size: 28rpx;
+      }
+    }
+  }
+
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}

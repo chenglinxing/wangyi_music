@@ -1,0 +1,20 @@
+<!--components/list.wxml-->
+<view class="music-list-index">
+  <view class="list-item" wx:for="{{musicList}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+    <view class="header">
+      <view class="title">{{item.title}}</view>
+      <view class="opreate" bindtap="handleClickHeaderOpreation">{{item.titleOpreateName}}</view>
+    </view>
+
+    <view class="song-item-list">
+      <view class="song-item" wx:for="{{item.list}}" wx:for-index="songItemIndex" wx:for-item="songItem" bindtap="hanldleClickSongItem" data-songItem="{{songItem}}">
+        <!-- <view class="song-item-image" style="background: url({{songItem.bgUrl}});"></view> -->
+        <image class="song-item-image" src="{{songItem.bgUrl}}"></image>
+        <view class="song-info">
+          <view class="song-name">{{songItem.songName}}</view>
+          <view class="song-singer">{{songItem.singer}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

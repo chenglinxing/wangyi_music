@@ -1,7 +1,9 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/songSheet/index"
+    "pages/songSheet/index",
+    "pages/search/index",
+    "pages/song/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

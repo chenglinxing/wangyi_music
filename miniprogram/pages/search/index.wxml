@@ -1,0 +1,48 @@
+<!--pages/search/index.wxml-->
+<view class="search-index">
+  <view class="header-search">
+    <!-- <view class="header-back"></view> -->
+    <input type="text" value="{{searchContent}}" placeholder="{{searchPlaceholder}}" bindinput="handleInputContent" data-value="searchContent" />
+    <view class="btn-search" bindtap="handleInputSearch">搜索</view>
+  </view>
+  <view class="container">
+    <view class="recommand-info" wx:if="{{isShowHistory}}">
+      <view class="recommend">
+        <view class="recommend-title">
+          <view class="title">推荐</view>
+          <view class="btn" bindtap="handleRefreshRecommand">R</view>
+        </view>
+        <view class="recommend-list">
+          <span wx:for="{{showRecommandSongList}}" wx:for-item="item" wx:key="id" bindtap="handleClickRecommandItem" data-recommandItem="{{item}}">{{item.name}}</span>
+        </view>
+      </view>
+      <view class="hot-detail">
+        <view class="card-item">
+          <view class="card-item-header">
+            <view class="card-item-header-title">热搜榜</view>
+            <view class="card-item-header-btn">播放</view>
+          </view>
+
+          <view class="card-item-list">
+            <view class="card-item-list-item" wx:for="{{hotDetailList}}" wx:for-item="item" wx:key="score" wx:for-index="index" bindtap="handleClickHotDetailItem" data-hotDetailItem="{{item}}">
+              <span class="card-item-list-item-no">{{index+1}}</span>
+              <span class="card-item-list-item-name">{{item.searchWord}}</span>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+
+    <view class="song-list" wx:else>
+      <view class="song-item" wx:for="{{songList}}" wx:key="id" wx:for-item="item" bindtap="handleClikSontItem" data-currentSong="{{item}}">
+        <span wx:if="item.artists">
+          {{item.name}} - {{item.artists[0].name }}
+        </span>
+        <span wx:else>
+          {{item.name}}
+        </span>
+      </view>
+    </view>
+  </view>
+</view>
