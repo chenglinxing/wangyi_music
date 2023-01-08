@@ -1,9 +1,11 @@
 // pages/song/index.ts
 import { getSongLyric, getSongMP3, getSongDetail } from "../../api/index"
 
-const innerAudioContext = wx.createInnerAudioContext()
-Page({
+//背景音频
+const backgroundAudioManager = wx.getBackgroundAudioManager();
 
+
+Page({
   /**
    * 页面的初始数据
    */
@@ -12,17 +14,29 @@ Page({
     lyricArr: [], //存取歌词信息 数组
     mp3Url: "",//MP3地址
     defaultPlay: true, //初始化进来默认播放
-    songInfo: {},//歌曲信息包括歌名作者
+    songInfo: { author: "", songName: "" },//歌曲信息包括歌名作者
     bgcUrl: "",//背景图片路径
     isShowSongBg: true,//默认展示背景  点击后展示歌词
-    timer: 0,
-    timer1: 0
+    currentTime: 0,//当前播放时间总时长
+    duration: 0,//时长
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   async onLoad(options: any) {
+    backgroundAudioManager.onTimeUpdate(() => {
+      // console.log(backgroundAudioManager.currentTime, backgroundAudioManager.duration, 'd')
+      let { currentTime, duration } = backgroundAudioManager
+      this.setData({
+        currentTime, duration
+      })
+    })
+    backgroundAudioManager.onStop(() => {
+      this.setData({
+        defaultPlay: !this.data.defaultPlay
+      })
+    })
     console.log(options);
     let { songId, author, songName } = options;
     this.setData({
@@ -60,52 +74,44 @@ Page({
       })
     }
     //进入页面后自动播放
-    innerAudioContext.src = this.data.mp3Url
-    innerAudioContext.autoplay = this.data.defaultPlay
+    let { bgcUrl, mp3Url, songInfo } = this.data
+    //退出后  设置继续播放
+    backgroundAudioManager.title = songInfo.songName
+    backgroundAudioManager.singer = songInfo.author
+    backgroundAudioManager.src = mp3Url
+    backgroundAudioManager.coverImgUrl = bgcUrl
+    console.log(backgroundAudioManager, 'backgroundAudioManager');
   },
 
   //播放
   playMP3() {
+    //进入页面后自动播放
+    let { bgcUrl, mp3Url, songInfo } = this.data
+    //退出后  设置继续播放
+    backgroundAudioManager.title = songInfo.songName
+    backgroundAudioManager.singer = songInfo.author
+    backgroundAudioManager.src = mp3Url
+    backgroundAudioManager.coverImgUrl = bgcUrl
+    console.log(backgroundAudioManager, 'backgroundAudioManager');
     this.setData({
       defaultPlay: !this.data.defaultPlay
     })
-    innerAudioContext.src = this.data.mp3Url
-    innerAudioContext.autoplay = this.data.defaultPlay
-    this.data.defaultPlay ? innerAudioContext.play() : innerAudioContext.pause()
+    let { defaultPlay } = this.data
+    defaultPlay ? this.MP3Start() : this.MP3Stop()
 
-    innerAudioContext.onPlay(() => {
-      console.log('开始播放', innerAudioContext.duration)
-      // this.MP3Start()
-
-    })
-    // innerAudioContext.onPause((listener) => {
-    //   console.log('暂停播放', innerAudioContext.duration);
-    //   // this.MP3Stop()
-    // })
-
-    // innerAudioContext.onCanplay((listener) => {
-    //   console.log(listener, innerAudioContext.duration);
-    // })
   },
   //播放
   MP3Start() {
-
-
-    this.setData({
-      timer: this.data.timer1
+    backgroundAudioManager.play();
+    backgroundAudioManager.onPlay(() => {
+      console.log('开始播放');
     })
-    setTimeout(() => {
-      this.setData({
-        timer: this.data.timer++
-      })
-    }, 1000);
-    console.log('播放', this.data.timer);
   },
   //暂停
   MP3Stop() {
-    console.log('暂停', this.data.timer);
-    this.setData({
-      timer1: this.data.timer
+    backgroundAudioManager.pause();
+    backgroundAudioManager.onPause(() => {
+      console.log('暂停播放');
     })
   },
   //点击歌词区域
@@ -130,7 +136,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
   },
 
   /**
@@ -144,7 +149,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload() {
-    innerAudioContext.stop()
   },
 
   /**
@@ -166,5 +170,5 @@ Page({
    */
   onShareAppMessage() {
 
-  }
+  },
 })

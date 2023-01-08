@@ -7,7 +7,7 @@
     </view>
 
     <view class="song-item-list">
-      <view class="song-item" wx:for="{{item.list}}" wx:for-index="songItemIndex" wx:for-item="songItem" bindtap="hanldleClickSongItem" data-songItem="{{songItem}}">
+      <view class="song-item" wx:for="{{item.list}}" wx:for-index="songItemIndex" wx:key="songItemIndex" wx:for-item="songItem" bindtap="hanldleClickSongItem" data-songItem="{{songItem}}">
         <!-- <view class="song-item-image" style="background: url({{songItem.bgUrl}});"></view> -->
         <image class="song-item-image" src="{{songItem.bgUrl}}"></image>
         <view class="song-info">
