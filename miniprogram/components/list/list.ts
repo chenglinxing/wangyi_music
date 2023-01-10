@@ -33,9 +33,15 @@ Component({
     hanldleClickSongItem(e) {
       let { songitem } = e.currentTarget.dataset
       console.log(songitem);
-      wx.navigateTo({
-        url: `../song/index?songId=${songitem.id}&author=${songitem.singer}&songName=${songitem.songName}`
-      })
+      //type=0推荐歌单  type=1新歌
+      if (songitem.type === 1) {
+        wx.navigateTo({
+          url: `../song/index?songId=${songitem.id}&author=${songitem.singer}&songName=${songitem.songName}`
+        })
+      }else{
+        //跳转歌单详情页
+      }
+
     }
   }
 })

@@ -70,7 +70,14 @@ export const getSongListDetailById = (songListParams: ISongListParams) =>
     method: 'get'
   })
 
+//获取新歌
 export const getNewSong = (type = 0) =>
   service({
     requestUrl: "/top/song?type=" + type
+  })
+
+// 获取推荐歌单
+export const getPersonalized = (limit = 6) =>
+  service({
+    requestUrl: "/personalized?limit=" + limit
   })

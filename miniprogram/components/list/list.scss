@@ -1,4 +1,7 @@
 /* components/list.wxss */
+@import "../../style/iconfont.wxss";
+
+
 .music-list-index {
   .list-item {
     margin-bottom: 35rpx;
@@ -14,7 +17,17 @@
       }
 
       .opreate {
-        font-size: 22rpx;
+        font-size: 24rpx;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+
+        .iconfont {
+          margin-left: 10rpx;
+          font-size: 22rpx;
+
+          color: #b9b9b9;
+        }
       }
     }
 
@@ -26,7 +39,7 @@
       .song-item {
         width: 31.5%;
         margin: 10rpx 0;
-
+        position: relative;
         .song-item-image {
           height: 180rpx;
           border-radius: 15rpx;
@@ -35,7 +48,6 @@
 
         .song-info {
           .song-name {
-            font-weight: bold;
             font-size: 24rpx;
             overflow: hidden;
             white-space: nowrap;
@@ -45,6 +57,31 @@
           .song-singer {
             color: #bbbbbb;
             font-size: 22rpx;
+          }
+        }
+
+        .song-list {
+          overflow: hidden; //多出的隐藏
+          text-overflow: ellipsis; //多出部分用...代替
+          display: -webkit-box; //定义为盒子模型显示
+          -webkit-line-clamp: 2; //用来限制在一个块元素显示的文本的行数
+          -webkit-box-orient: vertical; //从上到下垂直排列子元素（设置伸缩盒子的子元素排列方式）
+          font-size: 24rpx;
+          
+          .song-play-count{
+            position: absolute;
+            top: 15rpx;
+            right: 15rpx;
+            color: #ffffff;
+            background-color: #555542;
+            border-radius: 30rpx;
+            box-sizing: border-box;
+            padding: 5rpx 15rpx;
+            font-size: 16rpx;
+            .iconfont{
+              font-size: 16rpx;
+              margin-right: 5rpx;
+            }
           }
         }
       }

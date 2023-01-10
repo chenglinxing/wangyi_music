@@ -3,16 +3,26 @@
   <view class="list-item" wx:for="{{musicList}}" wx:for-item="item" wx:for-index="index" wx:key="index">
     <view class="header">
       <view class="title">{{item.title}}</view>
-      <view class="opreate" bindtap="handleClickHeaderOpreation">{{item.titleOpreateName}}</view>
+      <view class="opreate" bindtap="handleClickHeaderOpreation">
+        <span>{{item.titleOpreateName}}</span>
+        <span class="iconfont icon-arrow-right-bold"></span>
+      </view>
     </view>
 
     <view class="song-item-list">
       <view class="song-item" wx:for="{{item.list}}" wx:for-index="songItemIndex" wx:key="songItemIndex" wx:for-item="songItem" bindtap="hanldleClickSongItem" data-songItem="{{songItem}}">
         <!-- <view class="song-item-image" style="background: url({{songItem.bgUrl}});"></view> -->
         <image class="song-item-image" src="{{songItem.bgUrl}}"></image>
-        <view class="song-info">
+        <view class="song-info" wx:if="{{songItem.songName}}">
           <view class="song-name">{{songItem.songName}}</view>
           <view class="song-singer">{{songItem.singer}}</view>
+        </view>
+        <view class="song-list" wx:else>
+          <view class="song-desc">{{songItem.desc}}</view>
+          <view class="song-play-count">
+            <span class="iconfont icon-zanting1"></span>
+            <span>{{songItem.playCount}}</span>
+          </view>
         </view>
       </view>
     </view>

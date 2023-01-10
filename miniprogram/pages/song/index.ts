@@ -25,6 +25,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options: any) {
+    console.log(options);
     backgroundAudioManager.onTimeUpdate(() => {
       // console.log(backgroundAudioManager.currentTime, backgroundAudioManager.duration, 'd')
       let { currentTime, duration } = backgroundAudioManager
@@ -32,12 +33,6 @@ Page({
         currentTime, duration
       })
     })
-    backgroundAudioManager.onStop(() => {
-      this.setData({
-        defaultPlay: !this.data.defaultPlay
-      })
-    })
-    console.log(options);
     let { songId, author, songName } = options;
     this.setData({
       songInfo: { author, songName }
@@ -80,19 +75,22 @@ Page({
     backgroundAudioManager.singer = songInfo.author
     backgroundAudioManager.src = mp3Url
     backgroundAudioManager.coverImgUrl = bgcUrl
+
+    //让通知栏的播放暂停的状态跟页面的播放暂停保持一致
+    this.playMP3()
+    this.playMP3()
     console.log(backgroundAudioManager, 'backgroundAudioManager');
   },
 
   //播放
   playMP3() {
     //进入页面后自动播放
-    let { bgcUrl, mp3Url, songInfo } = this.data
+    // let { bgcUrl, mp3Url, songInfo } = this.data
     //退出后  设置继续播放
-    backgroundAudioManager.title = songInfo.songName
-    backgroundAudioManager.singer = songInfo.author
-    backgroundAudioManager.src = mp3Url
-    backgroundAudioManager.coverImgUrl = bgcUrl
-    console.log(backgroundAudioManager, 'backgroundAudioManager');
+    // backgroundAudioManager.title = songInfo.songName
+    // backgroundAudioManager.singer = songInfo.author
+    // backgroundAudioManager.src = mp3Url
+    // backgroundAudioManager.coverImgUrl = bgcUrl
     this.setData({
       defaultPlay: !this.data.defaultPlay
     })
@@ -104,7 +102,9 @@ Page({
   MP3Start() {
     backgroundAudioManager.play();
     backgroundAudioManager.onPlay(() => {
-      console.log('开始播放');
+      console.log('开始播放'); this.setData({
+        defaultPlay: true
+      })
     })
   },
   //暂停
@@ -112,6 +112,9 @@ Page({
     backgroundAudioManager.pause();
     backgroundAudioManager.onPause(() => {
       console.log('暂停播放');
+      this.setData({
+        defaultPlay: false
+      })
     })
   },
   //点击歌词区域
@@ -123,7 +126,6 @@ Page({
   //点击每一行歌词
   handleClickSong(e: any) {
     console.log(e);
-
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -136,13 +138,30 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    // backgroundAudioManager.onStop(() => {
+    //   wx.showToast({
+    //     title: "1111111",
+    //     duration: 5000
+    //   })
+    //   this.setData({
+    //     defaultPlay: false
+    //   })
+    // })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide() {
-
+    // backgroundAudioManager.onStop(() => {
+    //   wx.showToast({
+    //     title: "222222",
+    //     duration: 5000
+    //   })
+    //   this.setData({
+    //     defaultPlay: false
+    //   })
+    // })
   },
 
   /**
