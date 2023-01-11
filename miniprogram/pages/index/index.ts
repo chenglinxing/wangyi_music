@@ -146,6 +146,7 @@ Page({
     })
   },
   onLoad() {
+ 
     this.initBanner();
     this.getNewSongData(0);
     this.getRecommandSongList()
@@ -167,6 +168,9 @@ Page({
   },
   onPageScroll() {
     console.log(1);
+
+  },
+  onReady() {
 
   }
 })

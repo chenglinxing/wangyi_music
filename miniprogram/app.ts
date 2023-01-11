@@ -2,6 +2,17 @@
 App<IAppOption>({
   globalData: {},
   onLaunch() {
+
+    wx.requestSubscribeMessage({
+      tmplIds: ["Ju4VwpU8-oaXyYBlVi306H5DeUyocjhH_tjsdqIQiQg"],
+      success: (res: any) => {
+        console.log("授权成功", res)
+      },
+      fail: (res: any) => {
+        console.log("授权失败", res)
+
+      }
+    })
     // 展示本地存储能力
     const logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
