@@ -30,15 +30,19 @@
       </view>
     </view>
 
-    <!--数量-->
-
+    <!--music-list-item组件-->
     <view class="music-list-item">
       <music-list musicList="{{musicList}}"></music-list>
     </view>
 
-    <view class="bottom" wx:if="{{isBottom}}">
-      已经到底了
+    <!--play-music-->
+    <view class="play-music">
+      <play-music></play-music>
     </view>
+
+    <!-- <view class="bottom" wx:if="{{isBottom}}">
+      已经到底了
+    </view> -->
   </view>
 
 

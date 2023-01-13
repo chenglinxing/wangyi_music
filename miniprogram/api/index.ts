@@ -77,7 +77,7 @@ export const getNewSong = (type = 0) =>
   })
 
 // 获取推荐歌单
-export const getPersonalized = (limit = 6) =>
+export const getPersonalized = (limit: number = 6) =>
   service({
     requestUrl: "/personalized?limit=" + limit
   })

@@ -1,0 +1,53 @@
+/* components/playMusic.wxss */
+@import "../../style/iconfont.wxss";
+
+.play-music-index {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0 50rpx;
+
+  .music-info {
+    display: flex;
+    align-items: center;
+
+    .music-img {
+      width: 80rpx;
+      height: 80rpx;
+      border-radius: 50%;
+      transform: rotate(-13deg);
+      // transition: all 2s;
+      margin-right: 30rpx;
+    }
+
+    .song-info {
+      .song-name {}
+
+      .song-singer {}
+    }
+  }
+
+  .music-opreate {
+    display: flex;
+
+    .iconfont {
+      font-size: 52rpx;
+      font-weight: bold;
+      &:first-child{
+        margin-right: 35rpx;
+      }
+      // &:hover {
+      //   box-shadow: 20px 20px 50px #ccc inset;
+      // }
+    }
+
+
+    .start {}
+
+    .stop {}
+
+    .list {}
+  }
+}

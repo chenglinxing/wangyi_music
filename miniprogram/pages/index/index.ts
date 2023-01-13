@@ -109,7 +109,7 @@ Page({
         type: 1,//新歌
       }
     })
-    let newSongList = result.slice(0, 6)
+    let newSongList = result.slice(0, 3)
     this.setData({
       ['musicList[1].list']: newSongList
     })
@@ -118,7 +118,7 @@ Page({
 
   //获取推荐歌单
   async getRecommandSongList() {
-    const data: any = await getPersonalized()
+    const data: any = await getPersonalized(9)
     console.log(data.result, '111')
     let result = data.result.map((i: any) => {
       return {

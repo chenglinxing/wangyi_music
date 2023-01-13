@@ -121,6 +121,13 @@
   align-items: center;
 }
 
+.play-music{
+  position: sticky;
+  bottom: 0;
+  background-color: #ffffff;
+  height: 120rpx;
+}
+
 ::-webkit-scrollbar {
   display:none;
   width:0;

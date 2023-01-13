@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "music-list":"../../components/list/list"
+    "music-list":"../../components/list/list",
+    "play-music":"../../components/playMusic/playMusic"
   }
 }

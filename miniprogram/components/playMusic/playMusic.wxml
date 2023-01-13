@@ -1,0 +1,17 @@
+<!--components/playMusic.wxml-->
+<view class="play-music-index">
+  <view class="music-info">
+    <image class="music-img" src="https://p1.music.126.net/hoGRbppqaUIYkKpQGPwilw==/109951168031132211.jpg"></image>
+    <view class="song-info">
+      <span class="song-name">1111</span>
+      <span class="song-singer">222</span>
+    </view>
+  </view>
+
+  <view class="music-opreate">
+    <view wx:if="{{isStart}}" bindtap="handleClickMusic" class="stop iconfont icon-zanting"></view>
+    <view wx:else bindtap="handleClickMusic" class="start iconfont icon-bofang"></view>
+    <view class="list iconfont icon-play-list"></view>
+  </view>
+
+</view>
