@@ -22,8 +22,19 @@
     </view>
     <!--操作-->
     <view class="opreate-song">
-      <view class="process">
-        ————————</view>
+      <view class="progress-info">
+        <view class="song-time song-start-time">
+         {{songPlayDuration}}
+        </view>
+        <view class="progress-bar">
+          <view id="progress-no-play" style="left:{{ballMoveWidth}}px" catchtap="handleClickPlay" class="progress progress-no-play"></view>
+          <view class="ball" style="left:{{ballMoveWidth}}px" catchtouchstart="handleChangeSongTimeStart" catchtouchmove="handleChangeSongTime"></view>
+          <view class="progress progress-play" style="width:{{ballMoveWidth}}px" catchtap="handleClickPlay"></view>
+        </view>
+        <view class="song-time song-end-time">
+          {{pageShowSongDuration}}
+        </view>
+      </view>
       <view class="opreate">
         <view class="iconfont icon-shangyishou"></view>
         <view class="iconfont icon-zanting" wx:if="{{defaultPlay}}" bindtap="playMP3"></view>

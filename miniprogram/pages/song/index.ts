@@ -1,5 +1,6 @@
 // pages/song/index.ts
 import { getSongLyric, getSongMP3, getSongDetail } from "../../api/index"
+import { formatTimeToMinutesAndSeconds } from "../../utils/util"
 
 //背景音频
 const backgroundAudioManager = wx.getBackgroundAudioManager();
@@ -19,6 +20,11 @@ Page({
     isShowSongBg: true,//默认展示背景  点击后展示歌词
     currentTime: 0,//当前播放时间总时长
     duration: 0,//时长
+    ballMoveWidth: 0,
+    progeressBarPercentage: "0%",//进度条的所占百分比
+    songDuration: 0,//歌曲时长
+    pageShowSongDuration: "",//页面展示的歌曲时长 转换成分钟：秒
+    songPlayDuration: "00:00",//进度条左边实时展示当前歌曲播放时长  展示格式 分钟:秒
   },
 
   /**
@@ -27,10 +33,30 @@ Page({
   async onLoad(options: any) {
     console.log(options);
     backgroundAudioManager.onTimeUpdate(() => {
-      // console.log(backgroundAudioManager.currentTime, backgroundAudioManager.duration, 'd')
+      let a = backgroundAudioManager.currentTime
+      let b = backgroundAudioManager.duration
+      let aa = 0
+      let bb = 0
+      aa += a
+      bb += b
+      //展示左侧播放时长
+      let songPlayDuration = formatTimeToMinutesAndSeconds(aa, true)
+      // console.log(aa, bb, songPlayDuration, 'd')
+      const query = wx.createSelectorQuery();
+      query.select("#progress-no-play").boundingClientRect()
+      query.exec(res => {
+        let width = res[0].width
+        let ballMoveWidth = (Number((aa / bb).toFixed(2))) * width
+        this.setData({
+          ballMoveWidth
+        })
+      })
+
+
+
       let { currentTime, duration } = backgroundAudioManager
       this.setData({
-        currentTime, duration
+        currentTime, duration, songPlayDuration
       })
     })
     let { songId, author, songName } = options;
@@ -40,8 +66,14 @@ Page({
     //获取背景图片
     const bgData: any = await getSongDetail(songId)
     // console.log(bgData.songs[0].al.picUrl, 'bgData1');
+    //获取歌曲时长
+    const songDuration = bgData.songs[0].dt
+    console.log(songDuration,'songDurationsongDurationsongDurationsongDuration')
+    const pageShowSongDuration = formatTimeToMinutesAndSeconds(songDuration)
     this.setData({
-      bgcUrl: bgData.songs[0].al.picUrl
+      bgcUrl: bgData.songs[0].al.picUrl,
+      songDuration,
+      pageShowSongDuration
     })
     //获取歌词
     const data: any = await getSongLyric(songId)
@@ -127,6 +159,79 @@ Page({
   handleClickSong(e: any) {
     console.log(e);
   },
+  handleChangeSongTimeStart(e: any) {
+    console.log(e, 'handleChangeSongTimeStart')
+  },
+  //移动播放位置
+  handleChangeSongTime(e: any) {
+    let { offsetLeft } = e.target
+    const query = wx.createSelectorQuery();
+    query.select("#progress-no-play").boundingClientRect()
+    query.exec(res => {
+      console.log(res, offsetLeft, e.touches[0])
+      let width = res[0].width
+      let left = e.touches[0].clientX - res[0].left
+      let lastWidth = 0
+      //百分比
+      let progeressBarPercentage = ""
+      if (left >= width) {
+        lastWidth = width
+      } else if (left < 0) {
+        lastWidth = 0
+      } else {
+        lastWidth = left
+      }
+
+      //计算百分比
+      if (left >= 0 && left <= width) {
+        progeressBarPercentage = (left / width * 100).toFixed(4) + '%'
+      } else if (left <= 0) {
+        progeressBarPercentage = "0%"
+      } else {
+        progeressBarPercentage = "100%"
+      }
+      let decimal = Number(progeressBarPercentage.split("%")[0])
+      console.log(width, left, lastWidth, progeressBarPercentage, this.data.songDuration / 100 * decimal)
+      let songPlayDuration = formatTimeToMinutesAndSeconds(this.data.songDuration / 100 * decimal)
+      //总时长 * 百分比
+      let currentPosition = this.data.songDuration * Number(progeressBarPercentage.split("%")[0]) /1000 / 100
+      backgroundAudioManager.seek(currentPosition)
+      this.setData({
+        ballMoveWidth: lastWidth,
+        progeressBarPercentage,
+        songPlayDuration
+      })
+    })
+    // console.log(offsetLeft)
+  },
+
+  //进度条指定播放位置
+  handleClickPlay(e: any) {
+    console.log(e)
+    let { clientX } = e.touches[0]
+    const query = wx.createSelectorQuery();
+    query.select("#progress-no-play").boundingClientRect()
+    query.exec(res => {
+      let progressWidth = res[0].width
+      let left = res[0].left
+      let progeressBarPercentage = ((clientX - left) / progressWidth * 100).toFixed(4) + '%'
+      console.log(clientX - left, progeressBarPercentage)
+      let decimal = Number(progeressBarPercentage.split("%")[0])
+      let songPlayDuration = formatTimeToMinutesAndSeconds(this.data.songDuration / 100 * decimal)
+      
+      //总时长 * 百分比
+      let currentPosition = this.data.songDuration * Number(progeressBarPercentage.split("%")[0]) /1000 / 100
+      backgroundAudioManager.seek(currentPosition)
+      // console.log(this.data.songDuration/1000,progeressBarPercentage,currentPosition,'n')
+      this.setData({
+        ballMoveWidth: clientX - left,
+        progeressBarPercentage,
+        songPlayDuration
+      })
+    })
+
+
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -138,30 +243,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    // backgroundAudioManager.onStop(() => {
-    //   wx.showToast({
-    //     title: "1111111",
-    //     duration: 5000
-    //   })
-    //   this.setData({
-    //     defaultPlay: false
-    //   })
-    // })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide() {
-    // backgroundAudioManager.onStop(() => {
-    //   wx.showToast({
-    //     title: "222222",
-    //     duration: 5000
-    //   })
-    //   this.setData({
-    //     defaultPlay: false
-    //   })
-    // })
   },
 
   /**

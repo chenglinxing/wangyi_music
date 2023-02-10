@@ -71,9 +71,62 @@
     justify-content: center;
     align-items: center;
 
-    .process {
-      color: #fff;
+    .progress-info{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+
+    .song-time{
+      color: #ffffff;
+      font-size: 22rpx;
+    }
+    .progress-bar {
+      width: 70%;
+      position: relative;
+      margin: 0 20rpx;
+    }
+
+    .progress {}
+
+    .progress-no-play {
+      width: 100%;
+      height: 5rpx;
+      background: #818181;
+      border-radius: 2rpx;
+      cursor: pointer;
+    }
+
+    .ball {
+      position: absolute;
+      width: 20rpx;
+      height: 20rpx;
+      background: #ffffff;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      // left: 100px;
+      z-index: 3;
+      cursor: pointer;
+
+      &:hover {
+        transition: all .5s;
+        transform: scale(1.5);
+      }
+    }
+
+    .progress-play {
+      position: absolute;
+      // width: 100px;
+      height: 5rpx;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #fffafa;
+      cursor: pointer;
+    }
+
+
 
     .opreate {
       display: flex;
