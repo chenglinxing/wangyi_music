@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 // import reportWebVitals from './reportWebVitals';
 import "@/assets/css/reset.css"
+import "antd/dist/antd.css";
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

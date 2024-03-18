@@ -9,6 +9,9 @@ export const HeaderWrapper = styled.div`
 
   .content {
     height: 70px;
+
+    display: flex;
+    justify-content: space-between;
   }
 
   .divider {
@@ -16,6 +19,63 @@ export const HeaderWrapper = styled.div`
     background-color: #c20c0c;
   }
 
-  .header-left{}
-  .heaer-right{}
+  .header-left {
+    display: flex;
+    color: #ffffff;
+    .logo {
+      display: block;
+      width: 176px;
+      height: 69px;
+      background-position: 0 0;
+      text-indent: -9999px
+    }
+
+    .select-list {
+      display: flex;
+      line-height: 70px;
+
+      .select-item {
+        position: relative;
+        a {
+          display: block;
+          padding: 0 20px;
+          color: #ccc;
+        }
+
+        :last-of-type a {
+          position: relative;
+          ::after {
+            position: absolute;
+            content: "";
+            width: 28px;
+            height: 19px;
+            background-image: url(${require("@/assets/img/sprite_01.png")});
+            background-position: -190px 0;
+            top: 20px;
+            right: -15px;
+          }
+        }
+
+        &:hover a,
+        a.active {
+          color: #fff;
+          background: #000;
+          text-decoration: none;
+        }
+
+        .active .icon {
+          position: absolute;
+          display: inline-block;
+          width: 12px;
+          height: 7px;
+          bottom: -1px;
+          left: 50%;
+          transform: translate(-50%, 0);
+          background-position: -226px 0;
+        }
+      }
+    }
+  }
+  .heaer-right {
+  }
 `;
