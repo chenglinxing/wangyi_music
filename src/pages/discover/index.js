@@ -8,13 +8,6 @@ import request from "@/services/request";
 import { useEffect } from "react";
 
 const Discover = memo((props) => {
-  useEffect(() => {
-    request({
-      url: "/banner",
-    }).then(res => {
-      console.log(res)
-    })
-  }, []);
 
   const { route } = props;
   console.log(route);
